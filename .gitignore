@@ -1,0 +1,44 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+core*
+spider-server
+spider-mysqlproxy
+examples/mysqlproxy/bin/spider-mysqlproxy
+test/client
+*dSYM
+
+# Tmp
+*.swp
+*.swo
+
+# Logs
+*log
+
+# Tags
+tags
