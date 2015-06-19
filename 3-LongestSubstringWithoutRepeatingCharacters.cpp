@@ -4,6 +4,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 #include <string>
 #include <vector>
 #include <map>
@@ -13,51 +14,41 @@ using namespace std;
 
 class Solution {
 public:
-	int checksubstr(const string &s, size_t start) {
-		if (start >= s.length() - 1) {
-			return 1;
-		}
-
-		set <char> check_set;
-		for (size_t i = start; i < s.length() - 1; i++) {
-			check_set.insert(s[i]);
-			if (check_set.size() < i - start) {
-				return i - start;
-			}
-		}		
-
-		return s.length() - start;
-	}
-
     int lengthOfLongestSubstring(string s) {
-		printf("source %s\n", s.c_str());
 		if (s.empty()) {
 			return 0;
 		}
 
-		if (s.length() == 1) {
-			return 1;
-		}
-
-		vector <int> store;
-		for	(size_t i = 0 ; i < s.length(); i++) {
-			store.push_back(checksubstr(s, i));
-		}
-
+		int record[512];
+		memset(record, -1, 512);
 		int max = 0;
-		for	(size_t i = 0 ; i < store.size(); i++) {
-			if (store[i] >= max) {
-				max = store[i];
+		for	(size_t i = 0 ; i < s.length(); i++) {
+			int count = 0;
+			for (size_t j = i; j < s.length(); j++) {
+				char c = s[j];
+				if (record[c] == -1) {
+					record[c] = j;
+					count++;
+					if (count >= max) {
+						max = count;
+						printf("max=%d, i=%u, j=%u\n", max, i, j);
+					}
+				} else {
+					break;
+				}
 			}
-
+			memset(record, -1, 512);
 		}
+
 		return max;
     }
 };
 
 int main() {
-	string source = "helloworld, I want to make you happy abcdeffghijklmnopqrstuvwxyz";
+	string source = "helloworld, I want to make you happy abcdefgg,hijklmn";
+	source = "dv";
 
+	printf("source: %s\n", source.c_str());
 	Solution s;
 	int ret = s.lengthOfLongestSubstring(source);
 	printf("Max Substr Length %d\n", ret);
