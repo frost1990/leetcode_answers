@@ -31,7 +31,6 @@ public:
 					count++;
 					if (count >= max) {
 						max = count;
-						printf("max=%d, i=%u, j=%u\n", max, i, j);
 					}
 				} else {
 					break;
