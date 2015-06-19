@@ -22,7 +22,7 @@ public:
 	
 	int climbStairs(int n) {
 		int result = 0;		
-       	for (int p = 0; p <= n; p++)  {
+		for (int p = 0; p <= n; p++)  {
        		for (int q = 0; q <= n; q++)  {
 				if ((p +  2 * q) == n) {
 					int sum = p + q;
