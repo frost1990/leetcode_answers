@@ -35,20 +35,13 @@ class Solution {
 public:
 	void deleteNode(ListNode* node) {
 		ListNode* p = node;
+		ListNode* q = node;
 
-		int step = 0;
-		for (; p->next->next != NULL; p = p->next) {
-			step++;
+		for (; p->next != NULL; q = p, p = p->next) {
 			p->val = p->next->val;	
 		}
-		if (step < 2) {
-			p->val = p->next->val;	
-			p->next = NULL;
-			return;
-		}
-
-		p->val = p->next->val;	
-		p->next = NULL;
+		q->val = p->val;	
+		q->next = NULL;	
 	
 		return;
     }
