@@ -40,6 +40,7 @@ public:
 		if (p == NULL) {
 			return head;
 		}
+		// Note that P will never move
 		while (p->next != NULL) {
 			// q = 2
 			q = p->next;
