@@ -102,8 +102,8 @@ int main() {
 	l11.next = &l12;
 	l12.next = &l13;
 
-//	n1.next = &n2;
-//	n2.next = &n3;
+	//n1.next = &n2;
+	//n2.next = &n3;
 	//n3.next = &n4;
 
 	print_list(&l4);
