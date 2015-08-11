@@ -1,5 +1,5 @@
 /*
-Given a linked list, determine if it has a cycle in it.
+Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
 
 Follow up:
 Can you solve it without using extra space?
@@ -15,6 +15,9 @@ Can you solve it without using extra space?
  */
 
 #include <stdio.h>
+#include <set>
+
+using namespace std;
 
 struct ListNode {
 	int val;
@@ -31,28 +34,23 @@ void print_list(ListNode *list) {
 
 class Solution {
 public:
-	bool hasCycle(ListNode *head) {
+	ListNode* detectCycle(ListNode *head) {
 		if (head == NULL || head->next == NULL) {
-			return false;
+			return NULL;
 		}
 	
 		ListNode *p = head;
-		ListNode *q = head;
+		set <ListNode *> store;
 		
-		for ( ;  p != NULL && q->next != NULL; ) {
-			p = p->next;
-			q = q->next->next;
-
-			if (p == q) {
-				return true;
-			}
-
-			if (q == NULL) {
-				return false;
+		for ( ; p != NULL ; p = p->next ) {
+			if (store.find(p) == store.end()) {
+				store.insert(p);
+			} else {
+				return p;
 			}
 		}
 
-       	return false; 
+       	return NULL; 
     }
 };
 
@@ -62,21 +60,25 @@ int main() {
 	ListNode n1(0), n2(0), n3(0), n4(1);
 	l1.next = &l2;
 	l2.next = &l3;
-	l3.next = &l1;
 
 	l4.next = &l5;
 	l5.next = &l6;
 	l6.next = &l7;
 	l7.next = &l8;
 	l8.next = &l9;
-	l9.next = &l4;
-//	l10.next = &l11;
-//	l11.next = &l12;
-//	l12.next = &l13;
+	l9.next = &l10;
+	l10.next = &l11;
+	l11.next = &l12;
+	l12.next = &l13;
+	l13.next = &l12;
 
 	Solution s;
-	bool ret = s.hasCycle(&l1);
+	ListNode* ret = s.detectCycle(&l4);
 
-	printf("Return value is %s\n", ret ? "true":"false");
+	if (ret == NULL) {
+		printf("Return value is NULL\n");
+	} else {
+		printf("Return value is %d\n", ret->val);
+	}
 	return 0;
 }
