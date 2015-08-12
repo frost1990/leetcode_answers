@@ -1,9 +1,11 @@
-/*Given a sorted linked list, delete all duplicates such that each element appear only once.
+/*
+Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.
 
 For example,
-Given 1->1->2, return 1->2.
-Given 1->1->2->3->3, return 1->2->3.
+Given 1->2->3->3->4->4->5, return 1->2->5.
+Given 1->1->1->2->3, return 2->3.
 */
+
 
 /**
  * Definition for singly-linked list.
@@ -39,8 +41,11 @@ public:
 		}
 		ListNode *p = head;
 		ListNode *q = head;
+		ListNode tmp(0);
+		tmp.next = head;
 
 		set <int> store;
+		set <int> dups;
 		for ( ; p != NULL; p = p->next) {
 			// 1->2->3->3->4->5->6
 			// 1->2->3->4->5->6
@@ -48,17 +53,28 @@ public:
 				store.insert(p->val);
 				q = p;
 			} else {
+				dups.insert(p->val);
 				q->next = p->next;	
 			}
 		}
 
-   		return head;     
+		for (p = head, q = &tmp; p != NULL; p = p->next) {
+			// 1->2->3->4->5->6
+			// 1->2->4->5->6
+			if (dups.find(p->val) != dups.end()) {
+				q->next = p->next;	
+			} else {
+				q = p;
+			}		
+		}
+
+   		return tmp.next;     
 	}
 };
 
 int main() {
-	ListNode l1(1), l2(2), l3(2);
-	ListNode l4(1), l5(3), l6(3), l7(3), l8(5), l9(6), l10(7), l11(7), l12(9), l13(10);
+	ListNode l1(2), l2(2), l3(2);
+	ListNode l4(3), l5(3), l6(3), l7(3), l8(5), l9(6), l10(7), l11(7), l12(9), l13(10);
 
 	l1.next = &l2;
 	l2.next = &l3;
