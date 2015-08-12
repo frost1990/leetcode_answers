@@ -21,15 +21,18 @@ public:
 	void quicksort(vector<int> &array, int left, int right) {
 		if (left < right) {
 			int key = array[left];
+			// Partition
 			size_t low = left;
 			size_t high = right;
 			while (low < high) {
+				// Low remain stable
 				while (low < high && array[high] >= key){
 					high--;
 				}
 				if (high > low) {
 					array[low] = array[high];
 				}
+				// High remain stable
 				while (low < high && array[low] <= key){
 					low++;
 				}
@@ -38,6 +41,7 @@ public:
 				}
 			}
 			array[low] = key;
+			// Recursively invoke
 			quicksort(array, left, low - 1);
 			quicksort(array, low + 1, right);
 		} else {
