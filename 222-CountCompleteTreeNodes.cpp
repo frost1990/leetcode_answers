@@ -91,10 +91,12 @@ class Solution {
 			int ldepth = GetDepth(root->left);
 			int rdepth = GetDepth(root->right);
 
-			// A complete binary tree has 2^h - 1 internal nodes
+			// A complete binary tree has 2^h - 1 internal nodes, there must be at least one part is full
 			if (ldepth == rdepth) {
+				// In this case, left part is full
 				return (1 << ldepth) + countNodes(root->right);
 			} else {
+				// In this case, left part may not full, but right part is full
 				return (1 << rdepth) + countNodes(root->left);
 			}
 		}
