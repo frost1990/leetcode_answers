@@ -11,7 +11,7 @@ Special thanks to @jianchao.li.fighter for adding this problem and creating all 
 
 class Solution {
 public:
-	 int hammingWeight(uint32_t n) {
+	int hammingWeight(uint32_t n) {
 		int count = 0;
 		while (n) {
 			if ((n & 1) == 1) {
