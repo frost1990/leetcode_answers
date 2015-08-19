@@ -16,6 +16,12 @@ Special thanks to @mithmatt for adding this problem and creating all test cases.
 
 using namespace std;
 
+// 4 3 6 2 1 0 9 high-- low = 0 
+// 4 3 6 2 1 4 9 high = 5 low = 0
+// 4 3 6 2 1 0 9 high = 5 low = 1
+// 4 3 6 2 1 0 9 high = 5 low = 1
+// 4 3 0 2 1 0 9 high = 5 low = 2
+
 class Solution {
 public:
 	void quicksort(vector<int> &array, int left, int right) {
