@@ -1,5 +1,5 @@
 /*
-Given a binary tree, return the preorder traversal of its nodes' values.
+Given a binary tree, return the inorder traversal of its nodes' values.
 
 For example:
 Given binary tree {1,#,2,3},
@@ -8,7 +8,7 @@ Given binary tree {1,#,2,3},
      2
     /
    3
-return [1,2,3].
+return [1,3,2].
 
 Note: Recursive solution is trivial, could you do it iteratively?
 */
@@ -83,19 +83,19 @@ void PostTraverse(TreeNode *tree) {
 
 class Solution {
 public:
-	void preorder(TreeNode *root, vector<int> &store) {
+	void inorder(TreeNode *root, vector<int> &store) {
 		if (root) {
+			inorder(root->left, store);
 			store.push_back(root->val);
-			preorder(root->left, store);
-			preorder(root->right, store);
+			inorder(root->right, store);
 		} else {
 			return;
 		}		
 	}
 
-	vector<int> preorderTraversal(TreeNode* root) {
+	vector<int> inorderTraversal(TreeNode* root) {
 		vector<int> result;
-		preorder(root, result);
+		inorder(root, result);
 		return result;
 	}
 };
@@ -114,7 +114,7 @@ int main() {
 	PostTraverse(tree);
 	printf("\n");
 	Solution s;
-	vector<int> result = s.preorderTraversal(tree);
+	vector<int> result = s.inorderTraversal(tree);
 	
 	for (size_t i = 0; i < result.size(); i++) {
 		printf("%d ", result[i]);
