@@ -32,8 +32,6 @@ public:
 			return result;
 		}
 
-		int begin = 0;
-		int end = 0;
 		while (low <= high) {
 			if (target > nums[middle]) {
 				low = middle + 1;
