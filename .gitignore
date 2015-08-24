@@ -27,10 +27,6 @@
 *.out
 *.app
 core*
-spider-server
-spider-mysqlproxy
-examples/mysqlproxy/bin/spider-mysqlproxy
-test/client
 *dSYM
 
 # Tmp
