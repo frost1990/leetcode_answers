@@ -1,5 +1,5 @@
 /*
-Given preorder and inorder traversal of a tree, construct the binary tree.
+Given inorder and postorder traversal of a tree, construct the binary tree.
 
 Note:
 You may assume that duplicates do not exist in the tree.
@@ -50,23 +50,25 @@ void PostTraverse(TreeNode *tree) {
 
 class Solution {
 public:
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-		if (preorder.empty() || inorder.empty()) {
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+		if (inorder.empty() || postorder.empty()) {
 			return NULL;
 		}
 
-		return dobuildTree(preorder, 0, preorder.size() - 1, inorder, 0, inorder.size() - 1);
+		return dobuildTree(inorder, 0, inorder.size() - 1, postorder, 0, postorder.size() - 1);
 	}
 
-    TreeNode* dobuildTree(vector<int>& preorder, size_t prestart,  size_t preend, vector<int>& inorder, size_t instart, size_t inend) {
-		if ((prestart > preend) || (instart > inend)) {
+	// inorder: 	 4 7 2 |1| 5 3 8 6
+	// postorder: 	 7 4 2 5 8 6 3 |1|
+    TreeNode* dobuildTree(vector<int>& inorder, int instart, int inend, vector<int>& postorder, int poststart, int postend) {
+		if ((instart > inend) || (poststart > postend)) {
 			return NULL;
 		}
 
-		printf("prestart %lu, preend %lu, instart %lu, inend %lu\n", prestart, preend, instart, inend);
-		int rootval = preorder[prestart];
+		printf("instart %d, inend %d, poststart %d, postend %d\n", instart, inend, poststart, postend);
+		size_t rootval = postorder[postend];
 		TreeNode* root = new TreeNode(rootval);
-		int root_idx = 0;
+		size_t root_idx = 0;
 		for (size_t i = instart; i <= inend; i++) {
 			if (inorder[i] == rootval) {
 				root_idx = i;	
@@ -74,32 +76,33 @@ public:
 			}
 		}
 
-		root->left = dobuildTree(preorder, prestart + 1, prestart + root_idx - instart, inorder, instart, root_idx - 1);
-		root->right = dobuildTree(preorder, prestart + root_idx - instart + 1, preend, inorder, root_idx + 1, inend);
+		root->left = dobuildTree(inorder,  instart, root_idx - 1, postorder, poststart, poststart + root_idx - instart - 1);
+		root->right = dobuildTree(inorder, root_idx + 1, inend, postorder, poststart + root_idx - instart, postend - 1);
 
 		return root;
     }
 };
 
 int main() {
-	vector<int> preorder, inorder;
-	int pre[8] = {1, 2, 4, 7, 3, 5, 6, 8};
-	int in[8] = {4, 7, 2, 1, 5, 3, 8, 6};
+	vector<int> inorder, postorder;
+	size_t in[8] = {4, 7, 2, 1, 5, 3, 8, 6};
+	size_t post[8] = {7, 4, 2, 5, 8, 6, 3, 1};
 
-	for (int i = 0; i < 8; i++) {
-		preorder.push_back(pre[i]);	
-	}
-	for (int i = 0; i < 8; i++) {
+	for (size_t i = 0; i < 8; i++) {
 		inorder.push_back(in[i]);	
 	}
-	printf("Pre order:\n");
-	print_vector(preorder);
+	for (size_t i = 0; i < 8; i++) {
+		postorder.push_back(post[i]);	
+	}
 
 	printf("In order:\n");
 	print_vector(inorder);
 
+	printf("Post order:\n");
+	print_vector(postorder);
+
 	Solution s;
-	TreeNode *tree = s.buildTree(preorder, inorder) ;
+	TreeNode *tree = s.buildTree(inorder, postorder) ;
 
 	printf("Pre order:\n");
 	PreTraverse(tree);
