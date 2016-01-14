@@ -9,7 +9,7 @@ If you were only permitted to complete at most one transaction (ie, buy one and 
 
 using namespace std;
 
-void print_vector(vector<int> source) {
+void print_vector(const vector<int>& source) {
 	for (size_t i = 0; i < source.size(); i++) {
 		printf("%d ", source[i]);
 	}
