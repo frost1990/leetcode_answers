@@ -65,8 +65,8 @@ void MidTraverse(TreeNode *tree) {
 
 void PostTraverse(TreeNode *tree) {  
 	if (tree) {  
-		MidTraverse(tree->left);  
-		MidTraverse(tree->right);  
+		PostTraverse(tree->left);  
+		PostTraverse(tree->right);  
 		printf("%d ", tree->val);  
 	}
 }
